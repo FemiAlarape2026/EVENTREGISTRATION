@@ -31,7 +31,9 @@ function out(decision, text) {
   for (const f of changed) files[f] = fs.existsSync(f) ? fs.readFileSync(f, "utf8") : null;
 
   // 3. Ask the AI
-  const r = await gate(diff, files);
+  const allFiles = {};
+  for (const f of REQUIRED) allFiles[f] = fs.existsSync(f) ? fs.readFileSync(f, "utf8") : null;
+  const r = await gate(diff, files, allFiles, "v2");
   const text = `AI decision: ${r.decision} (risk: ${r.risk || "n/a"})\nReason: ${r.reason || r.error}`;
   out(r.decision, text);
 })().catch((e) => { out("hold", "Gate error, so the change was held: " + e.message); });

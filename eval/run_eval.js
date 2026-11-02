@@ -26,6 +26,8 @@ function makeVariant(c, dir) {
     fs.writeFileSync(p, t);
   }
 }
+function allFilesOf(dir) { const o = {}; for (const f of REQUIRED) o[f] = fs.readFileSync(path.join(dir, f), "utf8"); return o; }
+const VERSIONS = (process.env.EVAL_VERSIONS || "v1,v2").split(",");
 function diffOf(dir) {
   let all = "";
   const changed = {};
@@ -51,48 +53,63 @@ function diffOf(dir) {
     const truth = failed.length || c.plantedCredential ? "hold" : "deploy";   // "hold" = should NOT be published
     const rules = checkFolder(dir);
     const row = { id: c.id, title: c.title, truth, failed: failed.concat(c.plantedCredential ? ["planted credential"] : []).join("; "), rules: rules.ok ? "deploy" : "hold", rulesWhy: rules.problems.join("; ") };
-    if (!SKIP_AI) for (let r = 1; r <= RUNS; r++) {
-      const g = await gate(diff, changed);
-      runs.push({ id: c.id, run: r, decision: g.decision, risk: g.risk, reason: g.reason, promptTokens: g.promptTokens, completionTokens: g.completionTokens, ms: g.ms, error: g.error });
+    row.group = c.group || "original";
+    const allFiles = allFilesOf(dir);
+    if (!SKIP_AI) for (const version of VERSIONS) for (let r = 1; r <= RUNS; r++) {
+      const g = await gate(diff, changed, allFiles, version);
+      runs.push({ id: c.id, version, run: r, decision: g.decision, risk: g.risk, reason: g.reason, promptTokens: g.promptTokens, completionTokens: g.completionTokens, ms: g.ms, error: g.error });
     }
     rows.push(row);
-    console.log(`${c.id} truth=${truth} rules=${row.rules}${SKIP_AI ? "" : " ai=" + runs.filter((x) => x.id === c.id).map((x) => x.decision[0]).join("")}  ${row.failed}`);
+    console.log(`${c.id} truth=${truth} rules=${row.rules}${SKIP_AI ? "" : VERSIONS.map((v) => " " + v + "=" + runs.filter((x) => x.id === c.id && x.version === v).map((x) => x.decision[0]).join("")).join("")}  ${row.failed}`);
   }
   // ---- files
-  fs.writeFileSync(path.join(OUT, "cases.csv"), "id,title,truth,failed_checks,rules_decision,rules_reason\n" + rows.map((r) => [r.id, r.title, r.truth, r.failed, r.rules, r.rulesWhy].map(csv).join(",")).join("\n") + "\n");
-  fs.writeFileSync(path.join(OUT, "runs.csv"), "id,run,decision,risk,reason,prompt_tokens,completion_tokens,ms,error\n" + runs.map((r) => [r.id, r.run, r.decision, r.risk, r.reason, r.promptTokens, r.completionTokens, r.ms, r.error].map(csv).join(",")).join("\n") + "\n");
+  fs.writeFileSync(path.join(OUT, "cases.csv"), "id,group,title,truth,failed_checks,rules_decision,rules_reason\n" + rows.map((r) => [r.id, r.group, r.title, r.truth, r.failed, r.rules, r.rulesWhy].map(csv).join(",")).join("\n") + "\n");
+  fs.writeFileSync(path.join(OUT, "runs.csv"), "id,version,run,decision,risk,reason,prompt_tokens,completion_tokens,ms,error\n" + runs.map((r) => [r.id, r.version, r.run, r.decision, r.risk, r.reason, r.promptTokens, r.completionTokens, r.ms, r.error].map(csv).join(",")).join("\n") + "\n");
   // ---- summary
   const truthOf = Object.fromEntries(rows.map((r) => [r.id, r.truth]));
   const rulesOf = Object.fromEntries(rows.map((r) => [r.id, r.rules]));
+  const groupOf = Object.fromEntries(rows.map((r) => [r.id, r.group]));
   const score = (list) => {      // list of {truth, decision}
     const n = list.length, ok = list.filter((x) => x.truth === x.decision).length;
     return { n, correct: ok, pct: n ? +(100 * ok / n).toFixed(1) : 0,
       badLetThrough: list.filter((x) => x.truth === "hold" && x.decision === "deploy").length,
       goodBlocked: list.filter((x) => x.truth === "deploy" && x.decision === "hold").length };
   };
-  const S = { cases: rows.length, faulty: rows.filter((r) => r.truth === "hold").length, safe: rows.filter((r) => r.truth === "deploy").length, runsPerCase: RUNS };
-  S.alwaysDeploy = score(rows.map((r) => ({ truth: r.truth, decision: "deploy" })));
-  S.rulesOnly = score(rows.map((r) => ({ truth: r.truth, decision: r.rules })));
+  const groups = { all: () => true, original: (id) => groupOf[id] === "original", new: (id) => groupOf[id] === "new" };
+  const S = { cases: rows.length, faulty: rows.filter((r) => r.truth === "hold").length, safe: rows.filter((r) => r.truth === "deploy").length, runsPerCase: RUNS, results: {} };
+  for (const [g, f] of Object.entries(groups)) {
+    const rs = rows.filter((r) => f(r.id));
+    S.results[g] = { cases: rs.length, faulty: rs.filter((r) => r.truth === "hold").length,
+      alwaysDeploy: score(rs.map((r) => ({ truth: r.truth, decision: "deploy" }))),
+      rulesOnly: score(rs.map((r) => ({ truth: r.truth, decision: r.rules }))) };
+    if (!SKIP_AI) for (const v of VERSIONS) {
+      const rr = runs.filter((x) => x.version === v && f(x.id));
+      S.results[g]["ai_" + v] = score(rr.map((x) => ({ truth: truthOf[x.id], decision: x.decision })));
+      S.results[g]["rulesPlusAi_" + v] = score(rr.map((x) => ({ truth: truthOf[x.id], decision: rulesOf[x.id] === "hold" || x.decision === "hold" ? "hold" : "deploy" })));
+    }
+  }
   if (!SKIP_AI) {
-    S.aiOnly = score(runs.map((x) => ({ truth: truthOf[x.id], decision: x.decision })));
-    S.rulesPlusAi = score(runs.map((x) => ({ truth: truthOf[x.id], decision: rulesOf[x.id] === "hold" || x.decision === "hold" ? "hold" : "deploy" })));
-    const byCase = {}; runs.forEach((x) => (byCase[x.id] = byCase[x.id] || []).push(x.decision));
-    S.casesWhereRunsDisagree = Object.entries(byCase).filter(([, d]) => new Set(d).size > 1).map(([k]) => k);
-    S.aiErrors = runs.filter((x) => x.error).length;
-    const ms = runs.map((x) => x.ms).sort((a, b) => a - b);
-    S.meanSeconds = +(ms.reduce((a, b) => a + b, 0) / ms.length / 1000).toFixed(2);
-    S.p95Seconds = +(ms[Math.floor(0.95 * (ms.length - 1))] / 1000).toFixed(2);
-    S.promptTokens = runs.reduce((a, x) => a + x.promptTokens, 0); S.completionTokens = runs.reduce((a, x) => a + x.completionTokens, 0);
-    S.costUSD = +(S.promptTokens * PRICE_IN + S.completionTokens * PRICE_OUT).toFixed(4);
-    S.costPer1000Changes = +(S.costUSD / runs.length * 1000).toFixed(3);
-    S.wrongAiRuns = runs.filter((x) => x.decision !== truthOf[x.id]).map((x) => `${x.id} run${x.run}: ${x.decision} (truth ${truthOf[x.id]})`);
+    S.perVersion = {};
+    for (const v of VERSIONS) {
+      const rr = runs.filter((x) => x.version === v);
+      const byCase = {}; rr.forEach((x) => (byCase[x.id] = byCase[x.id] || []).push(x.decision));
+      const ms = rr.map((x) => x.ms).sort((a, b) => a - b);
+      const pt = rr.reduce((a, x) => a + x.promptTokens, 0), ct = rr.reduce((a, x) => a + x.completionTokens, 0);
+      S.perVersion[v] = { runs: rr.length, casesWhereRunsDisagree: Object.entries(byCase).filter(([, d]) => new Set(d).size > 1).map(([k]) => k),
+        aiErrors: rr.filter((x) => x.error).length, meanSeconds: +(ms.reduce((a, b) => a + b, 0) / ms.length / 1000).toFixed(2),
+        p95Seconds: +(ms[Math.floor(0.95 * (ms.length - 1))] / 1000).toFixed(2), promptTokens: pt, completionTokens: ct,
+        costUSD: +(pt * PRICE_IN + ct * PRICE_OUT).toFixed(4), costPer1000Changes: +((pt * PRICE_IN + ct * PRICE_OUT) / rr.length * 1000).toFixed(3),
+        wrongRuns: rr.filter((x) => x.decision !== truthOf[x.id]).map((x) => `${x.id} run${x.run}: ${x.decision} (truth ${truthOf[x.id]})`) };
+    }
   }
   fs.writeFileSync(path.join(OUT, "summary.json"), JSON.stringify(S, null, 2));
   const row = (n, s) => s ? `| ${n} | ${s.n} | ${s.correct} (${s.pct}%) | ${s.badLetThrough} | ${s.goodBlocked} |` : "";
-  const md = ["# Evaluation summary", "", `Cases: ${S.cases} (${S.faulty} faulty, ${S.safe} safe). AI runs per case: ${RUNS}.`, "",
-    "| Set-up | Decisions | Correct | Faulty changes let through | Safe changes blocked |", "|---|---|---|---|---|",
-    row("Always publish", S.alwaysDeploy), row("Rule checks only", S.rulesOnly), row("AI gate only", S.aiOnly), row("Rule checks + AI gate", S.rulesPlusAi), ""].join("\n");
-  fs.writeFileSync(path.join(OUT, "summary.md"), md + "\n\n```json\n" + JSON.stringify(S, null, 2) + "\n```\n");
+  let md = `# Evaluation summary\n\nCases: ${S.cases} (${S.faulty} faulty, ${S.safe} safe). AI runs per case and version: ${RUNS}.\n`;
+  for (const [g, R] of Object.entries(S.results)) {
+    md += `\n## ${g} cases (${R.cases}, of which ${R.faulty} faulty)\n\n| Set-up | Decisions | Correct | Faulty changes let through | Safe changes blocked |\n|---|---|---|---|---|\n`;
+    md += [row("Always publish", R.alwaysDeploy), row("Rule checks only", R.rulesOnly), ...VERSIONS.flatMap((v) => SKIP_AI ? [] : [row("AI gate " + v, R["ai_" + v]), row("Rule checks + AI gate " + v, R["rulesPlusAi_" + v])])].join("\n") + "\n";
+  }
+  fs.writeFileSync(path.join(OUT, "summary.md"), md + "\n```json\n" + JSON.stringify(S.perVersion || {}, null, 2) + "\n```\n");
   console.log("\n" + md);
   if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, md);
 })();

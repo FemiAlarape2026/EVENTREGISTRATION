@@ -7,13 +7,25 @@ const SITE_SPEC = `The website is a two-step event registration form (HTML, CSS 
 5. "Complete Registration" shows a success message, does not reload the page, and resets the form back to step 1.
 6. No passwords, keys or other credentials may appear in the files.`;
 
-const SYSTEM = `You are the release reviewer for a small website. A developer has pushed a change. Decide whether it is safe to publish to the live site automatically.
+const SYSTEM_V1 = `You are the release reviewer for a small website. A developer has pushed a change. Decide whether it is safe to publish to the live site automatically.
 ${SITE_SPEC}
 Answer "hold" if the change would probably break something above, leaks a credential, or you cannot tell that it is safe. Answer "deploy" if it is harmless or clearly keeps the site working.
 Judge only from the change and the file contents you are shown. Do not assume anything that is not shown.
 Reply with JSON only, in exactly this form: {"decision":"deploy" or "hold","risk":"low" or "medium" or "high","reason":"one short sentence"}`;
 
-function buildMessages(diff, files) {
+const SITE_SPEC_V2 = SITE_SPEC.replace('4. "Continue" only moves', '4. The button that goes to step 2 only moves');
+const SYSTEM_V2 = `You are the release reviewer for a small website. A developer has pushed a change. Decide whether it is safe to publish to the live site automatically.
+${SITE_SPEC_V2}
+You are shown the change and the COMPLETE current website files after the change. Only the lines in the change are new; judge whether the change itself would break any behaviour above or leak a credential. Do not hold a change because of problems that were already in the files before it, or because of wording, colour, text or style edits that cannot affect the behaviour above.
+Answer "hold" if the change would probably break something above, leaks a credential, or you cannot tell from what you can see that it is safe. Answer "deploy" otherwise.
+Reply with JSON only, in exactly this form: {"decision":"deploy" or "hold","risk":"low" or "medium" or "high","reason":"one short sentence"}`;
+
+function buildMessages(diff, files, allFiles, version) {
+  if (version === "v2") {
+    let user = "PROPOSED CHANGE (unified diff):\n" + (diff.trim() || "(no changes)") + "\n\nCOMPLETE WEBSITE FILES AFTER THE CHANGE:\n";
+    for (const n of Object.keys(allFiles)) user += `\n=== ${n} ===\n` + (allFiles[n] === null ? "(file missing)" : allFiles[n].slice(0, 20000)) + "\n";
+    return [{ role: "system", content: SYSTEM_V2 }, { role: "user", content: user }];
+  }
   let user = "PROPOSED CHANGE (unified diff):\n" + (diff.trim() || "(no changes)") + "\n\nFULL CONTENTS OF CHANGED FILES AFTER THE CHANGE:\n";
   const names = Object.keys(files);
   if (!names.length) user += "(none)\n";
@@ -21,7 +33,7 @@ function buildMessages(diff, files) {
     const c = files[n];
     user += `\n=== ${n} ===\n` + (c === null ? "(file deleted)" : c.slice(0, 20000)) + "\n";
   }
-  return [{ role: "system", content: SYSTEM }, { role: "user", content: user }];
+  return [{ role: "system", content: SYSTEM_V1 }, { role: "user", content: user }];
 }
 
 async function askModel(messages) {
@@ -60,6 +72,6 @@ async function askModel(messages) {
   return { decision: "hold", risk: "", reason: "", promptTokens: 0, completionTokens: 0, ms: 0, error: String(lastErr && lastErr.message || lastErr) };
 }
 
-async function gate(diff, files) { return askModel(buildMessages(diff, files)); }
+async function gate(diff, files, allFiles, version = "v2") { return askModel(buildMessages(diff, files, allFiles, version)); }
 
 module.exports = { gate, buildMessages, SITE_SPEC };

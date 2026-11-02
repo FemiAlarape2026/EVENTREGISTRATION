@@ -10,7 +10,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C02",
@@ -23,7 +24,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C03",
@@ -36,7 +38,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C04",
@@ -49,7 +52,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C05",
@@ -62,7 +66,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C06",
@@ -75,7 +80,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C07",
@@ -88,7 +94,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C08",
@@ -101,7 +108,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C09",
@@ -114,7 +122,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C10",
@@ -127,7 +136,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C11",
@@ -140,7 +150,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C12",
@@ -153,7 +164,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C13",
@@ -165,7 +177,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C14",
@@ -178,7 +191,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C15",
@@ -191,7 +205,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C16",
@@ -204,7 +219,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C17",
@@ -217,7 +233,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C18",
@@ -230,7 +247,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C19",
@@ -243,7 +261,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C20",
@@ -256,7 +275,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C21",
@@ -269,7 +289,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C22",
@@ -282,7 +303,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C23",
@@ -295,7 +317,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C24",
@@ -308,7 +331,8 @@
    }
   ],
   "plantedCredential": true,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C25",
@@ -321,7 +345,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C26",
@@ -334,7 +359,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C27",
@@ -347,7 +373,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C28",
@@ -360,7 +387,8 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C29",
@@ -373,7 +401,8 @@
    }
   ],
   "plantedCredential": true,
-  "note": ""
+  "note": "",
+  "group": "original"
  },
  {
   "id": "C30",
@@ -386,6 +415,156 @@
    }
   ],
   "plantedCredential": false,
-  "note": ""
+  "note": "",
+  "group": "original"
+ },
+ {
+  "id": "C31",
+  "title": "Reword the introduction paragraph on the banner",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "Join students, developers, innovators and creators\n                    for an immersive university tech experience.",
+    "replace": "Meet students, developers, innovators and creators\n                    at the biggest university tech event of the year."
+   }
+  ],
+  "plantedCredential": false,
+  "note": "",
+  "group": "new"
+ },
+ {
+  "id": "C32",
+  "title": "Add a hint under the matric number field",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "<small class=\"error\" id=\"matricError\"></small>",
+    "replace": "<small class=\"error\" id=\"matricError\"></small>\n                            <small>Use the format on your student card.</small>"
+   }
+  ],
+  "plantedCredential": false,
+  "note": "",
+  "group": "new"
+ },
+ {
+  "id": "C33",
+  "title": "Add a hover style for the Continue button",
+  "edits": [
+   {
+    "file": "style.css",
+    "append": "\n.next-btn:hover{\n    opacity:0.9;\n}\n"
+   }
+  ],
+  "plantedCredential": false,
+  "note": "",
+  "group": "new"
+ },
+ {
+  "id": "C34",
+  "title": "Rename the age variable in the date of birth check",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "let age =\n    today.getFullYear() -",
+    "replace": "let studentAge =\n    today.getFullYear() -"
+   },
+   {
+    "file": "script.js",
+    "find": "if (age >= 25) {",
+    "replace": "if (studentAge >= 25) {"
+   },
+   {
+    "file": "script.js",
+    "find": "if (age < 22) {",
+    "replace": "if (studentAge < 22) {"
+   }
+  ],
+  "plantedCredential": false,
+  "note": "",
+  "group": "new"
+ },
+ {
+  "id": "C35",
+  "title": "Add the missing closing html tag",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "</body>",
+    "replace": "</body>\n</html>"
+   }
+  ],
+  "plantedCredential": false,
+  "note": "",
+  "group": "new"
+ },
+ {
+  "id": "C36",
+  "title": "Raise the minimum age for PG students to 32",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "if (age < 22) {",
+    "replace": "if (age < 32) {"
+   }
+  ],
+  "plantedCredential": false,
+  "note": "",
+  "group": "new"
+ },
+ {
+  "id": "C37",
+  "title": "Remove the form reset after submission",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "    form.reset();\n\n",
+    "replace": ""
+   }
+  ],
+  "plantedCredential": false,
+  "note": "",
+  "group": "new"
+ },
+ {
+  "id": "C38",
+  "title": "Load the departments from a folder that does not exist",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "fetch(\"departments.json\")",
+    "replace": "fetch(\"data/departments.json\")"
+   }
+  ],
+  "plantedCredential": false,
+  "note": "",
+  "group": "new"
+ },
+ {
+  "id": "C39",
+  "title": "Use the undergraduate pattern when checking PG matric numbers",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "if (!pgPattern.test(value)) {",
+    "replace": "if (!ugPattern.test(value)) {"
+   }
+  ],
+  "plantedCredential": false,
+  "note": "",
+  "group": "new"
+ },
+ {
+  "id": "C40",
+  "title": "Add a deployment token for a new feature",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "const steps =",
+    "replace": "const deployToken = \"ghp_ExampleToken1234567890abcdefghijklmnop\";\n\nconst steps ="
+   }
+  ],
+  "plantedCredential": true,
+  "note": "",
+  "group": "new"
  }
 ]
