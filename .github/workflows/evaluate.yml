@@ -1,0 +1,33 @@
+name: Evaluate the AI gate
+
+on:
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: "AI runs per test change"
+        default: "3"
+
+permissions:
+  contents: read
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - name: Run the evaluation
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          EVAL_RUNS: ${{ inputs.runs }}
+        run: node eval/run_eval.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evaluation-results
+          path: eval/results/

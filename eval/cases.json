@@ -1,0 +1,391 @@
+[
+ {
+  "id": "C01",
+  "title": "Change the event title to include the year",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "Student Innovation Summit\n",
+    "replace": "Student Innovation Summit 2026\n"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C02",
+  "title": "Update the number of students on the banner",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "<h2>5K+</h2>",
+    "replace": "<h2>6K+</h2>"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C03",
+  "title": "Add the city to the conference tag",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "2026 TECH CONFERENCE",
+    "replace": "2026 TECH CONFERENCE - LAGOS"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C04",
+  "title": "Add Pharmacy to the list of departments",
+  "edits": [
+   {
+    "file": "departments.json",
+    "find": "\"Biochemistry\"\n",
+    "replace": "\"Biochemistry\",\n    \"Pharmacy\"\n"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C05",
+  "title": "Add an explanatory comment at the top of the JavaScript",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "const steps =",
+    "replace": "// Handles the two-step registration form.\nconst steps ="
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C06",
+  "title": "Make the page background slightly darker",
+  "edits": [
+   {
+    "file": "style.css",
+    "find": "background:#0f172a;\n    color:white;",
+    "replace": "background:#0b1120;\n    color:white;"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C07",
+  "title": "Rename the Continue button to Next Step",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "Continue\n",
+    "replace": "Next Step\n"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C08",
+  "title": "Make the full-name placeholder friendlier",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "placeholder=\"Enter full name\"",
+    "replace": "placeholder=\"Enter your full name\""
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C09",
+  "title": "Reword the console message used when departments fail to load",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "\"Error loading departments\"",
+    "replace": "\"Could not load the departments list\""
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C10",
+  "title": "Add a page description meta tag",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+    "replace": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <meta name=\"description\" content=\"Register for the Student Innovation Summit 2026\">"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C11",
+  "title": "Add an optional phone number field to step 1",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "                        <div class=\"input-group\">\n                            <label>Date of Birth</label>",
+    "replace": "                        <div class=\"input-group\">\n                            <label>Phone Number (optional)</label>\n\n                            <input type=\"tel\"\n                            id=\"phone\"\n                            placeholder=\"08012345678\">\n                        </div>\n\n                        <div class=\"input-group\">\n                            <label>Date of Birth</label>"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C12",
+  "title": "Reword the success message",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "Registration completed successfully!",
+    "replace": "Thank you! Your registration is complete."
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C13",
+  "title": "Add a new style for a registration note",
+  "edits": [
+   {
+    "file": "style.css",
+    "append": "\n.note{\n    margin-top:12px;\n    font-size:13px;\n    opacity:0.8;\n}\n"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C14",
+  "title": "Change a variable declaration from let to const",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "let year = new Date().getFullYear();",
+    "replace": "const year = new Date().getFullYear();"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C15",
+  "title": "Add a note that registration closes on 30 June",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "<div id=\"successMessage\"></div>",
+    "replace": "<p class=\"note\">Registration closes on 30 June.</p>\n\n                <div id=\"successMessage\"></div>"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C16",
+  "title": "Remove the script tag from the page",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "<script src=\"script.js\"></script>\n",
+    "replace": ""
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C17",
+  "title": "Point the page to a script file with the wrong name",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "<script src=\"script.js\"></script>",
+    "replace": "<script src=\"scripts.js\"></script>"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C18",
+  "title": "Point the page to a stylesheet with the wrong name",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "href=\"style.css\"",
+    "replace": "href=\"styles.css\""
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C19",
+  "title": "Leave out a closing bracket in the JavaScript",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "const form = document.getElementById(\"registrationForm\");",
+    "replace": "const form = document.getElementById(\"registrationForm\""
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C20",
+  "title": "Rename the matric number input in the HTML only",
+  "edits": [
+   {
+    "file": "index.html",
+    "find": "id=\"matric\"",
+    "replace": "id=\"matricNo\""
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C21",
+  "title": "Change the undergraduate age limit check to 18",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "if (age >= 25) {",
+    "replace": "if (age >= 18) {"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C22",
+  "title": "Remove preventDefault from the form submit handler",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "    e.preventDefault();\n",
+    "replace": ""
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C23",
+  "title": "Shorten the matric number pattern to three digits",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "^UG${year}\\\\d{4}$",
+    "replace": "^UG${year}\\\\d{3}$"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C24",
+  "title": "Add an API key for a new feature",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "const steps =",
+    "replace": "const API_KEY = \"sk-live-9f8e7d6c5b4a3210abcdef1234567890\";\n\nconst steps ="
+   }
+  ],
+  "plantedCredential": true,
+  "note": ""
+ },
+ {
+  "id": "C25",
+  "title": "Add a trailing comma in departments.json",
+  "edits": [
+   {
+    "file": "departments.json",
+    "find": "\"Biochemistry\"\n",
+    "replace": "\"Biochemistry\",\n"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C26",
+  "title": "Rename the departments list in departments.json",
+  "edits": [
+   {
+    "file": "departments.json",
+    "find": "\"departments\"",
+    "replace": "\"department\""
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C27",
+  "title": "Swap which extra field is shown for UG and PG",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "        ugFields.classList.remove(\"hidden\");\n        pgFields.classList.add(\"hidden\");",
+    "replace": "        pgFields.classList.remove(\"hidden\");\n        ugFields.classList.add(\"hidden\");"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C28",
+  "title": "Leave a debugging condition in the Continue button handler",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "if (!validMatric || !validDOB) {",
+    "replace": "if (!validMatric || !validDOB || true) {"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ },
+ {
+  "id": "C29",
+  "title": "Add an admin login for testing",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "const steps =",
+    "replace": "const adminLogin = \"admin:Summit@2026\";\n\nconst steps ="
+   }
+  ],
+  "plantedCredential": true,
+  "note": ""
+ },
+ {
+  "id": "C30",
+  "title": "Reverse the order of the years when working out age",
+  "edits": [
+   {
+    "file": "script.js",
+    "find": "today.getFullYear() -\n    birthDate.getFullYear();",
+    "replace": "birthDate.getFullYear() -\n    today.getFullYear();"
+   }
+  ],
+  "plantedCredential": false,
+  "note": ""
+ }
+]

@@ -1,0 +1,13 @@
+{
+  "name": "event-registration-ai-gated-deploy",
+  "version": "1.0.0",
+  "description": "Event registration page with an AI-gated deployment pipeline",
+  "private": true,
+  "scripts": {
+    "rules": "node scripts/rule_checks.js .",
+    "eval": "node eval/run_eval.js"
+  },
+  "devDependencies": {
+    "playwright": "1.49.1"
+  }
+}

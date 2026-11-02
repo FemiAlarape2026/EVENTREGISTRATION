@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Event Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="page">
+
+        <!-- LEFT SIDE -->
+        <div class="event-side">
+
+            <div class="overlay"></div>
+
+            <div class="event-content">
+                <span class="tag">2026 TECH CONFERENCE</span>
+
+                <h1>
+                    Student Innovation Summit
+                </h1>
+
+                <p>
+                    Join students, developers, innovators and creators
+                    for an immersive university tech experience.
+                </p>
+
+                <div class="stats">
+
+                    <div class="stat-box">
+                        <h2>5K+</h2>
+                        <span>Students</span>
+                    </div>
+
+                    <div class="stat-box">
+                        <h2>40+</h2>
+                        <span>Speakers</span>
+                    </div>
+
+                    <div class="stat-box">
+                        <h2>12</h2>
+                        <span>Workshops</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="form-side">
+
+            <div class="form-card">
+
+                <h2>Create Registration</h2>
+
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+
+                <form id="registrationForm">
+
+                    <!-- STEP 1 -->
+                    <div class="form-step active">
+
+                        <div class="input-group">
+                            <label>Academic Level</label>
+
+                            <select id="academicLevel" required>
+                                <option value="">Select Level</option>
+                                <option value="UG">Undergraduate</option>
+                                <option value="PG">Postgraduate</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Matric Number</label>
+
+                            <input type="text"
+                            id="matric"
+                            placeholder="UG20261023">
+
+                            <small class="error" id="matricError"></small>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Full Name</label>
+
+                            <input type="text"
+                            id="fullname"
+                            placeholder="Enter full name">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Date of Birth</label>
+
+                            <input type="date" id="dob">
+
+                            <small class="error" id="dobError"></small>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Department</label>
+
+                            <select id="department">
+                                <option>
+                                    Loading departments...
+                                </option>
+                            </select>
+                        </div>
+
+                        <button type="button"
+                        class="next-btn">
+                            Continue
+                        </button>
+
+                    </div>
+
+
+                    <!-- STEP 2 -->
+                    <div class="form-step">
+
+                        <div id="ugFields"
+                        class="dynamic-fields hidden">
+
+                            <div class="input-group">
+                                <label>Hostel Name</label>
+
+                                <input type="text"
+                                id="hostel"
+                                placeholder="Enter hostel">
+                            </div>
+
+                        </div>
+
+
+                        <div id="pgFields"
+                        class="dynamic-fields hidden">
+
+                            <div class="input-group">
+                                <label>
+                                    Previous Institution
+                                </label>
+
+                                <input type="text"
+                                id="institution"
+                                placeholder="Institution name">
+                            </div>
+
+                        </div>
+
+                        <div class="button-group">
+
+                            <button type="button"
+                            class="prev-btn">
+                                Back
+                            </button>
+
+                            <button type="submit"
+                            class="submit-btn">
+                                Complete Registration
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+                <div id="successMessage"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
